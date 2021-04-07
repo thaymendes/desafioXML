@@ -1,0 +1,84 @@
+package generate.xml;
+
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamResult;
+
+import xml.model.Contato;
+import xml.model.Endereco;
+import xml.model.Telefone;
+
+public class TesteJaxB2 {
+	private static Marshaller marshaller = null;
+	private static Unmarshaller unmarshaller = null;
+	
+	
+    public static void main(String[] args) {
+        Endereco end = new Endereco();
+        end.setLogradouro("Rua Venancio Aires");
+        end.setNumero(654);
+        end.setComplemento("Ap.03A");
+        end.setBairro("Centro");
+        end.setCidade("Santa Maria");
+        end.setCep("97050-100");
+        end.setId(1);
+
+        Collection<Telefone> collection = new ArrayList<>();
+
+        Telefone f1 = new Telefone();
+        f1.setId(1);
+        f1.setDdd(55);
+        f1.setNumero(21210022);
+        collection.add(f1);
+
+        Telefone f2 = new Telefone();
+        f2.setId(2);
+        f2.setDdd(54);
+        f2.setNumero(91910022);
+        collection.add(f2);
+
+        Contato contato = new Contato();
+        contato.setId(1);
+        contato.setNome("Ana Maria");
+        contato.setEmail("ana.maria@email.com");
+        contato.setEndereco(end);
+        contato.setTelefones(collection);
+
+        TesteJaxB2.marshal(contato);
+        String TesteJaxB2 = null;
+		String xml = TesteJaxB2;
+		System.out.println(xml);
+        
+   }
+
+    /**
+     * Converte o objeto em uma String com estrutura XML.
+     * @param object objeto a ser convertido em XML.
+     * @return String contendo a estrutura XML.
+     */
+    public static String marshal(Object object) {
+        final StringWriter out = new StringWriter();
+        JAXBContext context = null;
+        try {
+            context = JAXBContext.newInstance(object.getClass());
+            marshaller = context.createMarshaller();
+            marshaller.setProperty(
+                    javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT,
+                    Boolean.TRUE
+            );
+            marshaller.marshal(object, new StreamResult(out));
+        } catch (PropertyException e) {
+            e.printStackTrace();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        return out.toString();
+    }
+}

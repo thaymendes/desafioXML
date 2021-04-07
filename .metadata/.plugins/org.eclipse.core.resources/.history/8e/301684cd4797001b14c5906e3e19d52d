@@ -1,0 +1,50 @@
+package xml.teste;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "Endereco")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(namespace = "https://mballem.com/")
+public class Endereco {
+    @XmlElement(name = "id", required = true)
+    private int id;
+
+    @XmlElement(name = "logradouro", required = true)
+    private String logradouro;
+
+    @XmlElement(name = "bairro", required = true)
+    private String bairro;
+
+    @XmlElement(name = "cep", required = true)
+    private String cep;
+
+    @XmlElement(name = "cidade", required = true)
+    private String cidade;
+
+    @XmlElement(name = "complemento", required = false)
+    private String complemento;
+
+    @XmlElement(name = "numero", required = true)
+    private int numero;
+
+    //Gerar métodos get/set
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "id=" + id +
+                ", logradouro='" + logradouro + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", cep='" + cep + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", complemento='" + complemento + '\'' +
+                ", numero=" + numero +
+                '}';
+    }
+}

@@ -1,0 +1,46 @@
+package xml.teste;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "Contato")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(
+        name = "Contato",
+        propOrder = {"id", "nome", "email", "endereco", "telefones"},
+        namespace = "https://mballem.com/"
+)
+public class Contato {
+    @XmlElement(name = "id", required = true)
+    private int id;
+
+    @XmlElement(name = "nome", required = true)
+    private String nome;
+
+    @XmlElement(name = "email", required = true)
+    private String email;
+
+    @XmlElementWrapper(name = "Telefones")
+    @XmlElement(name = "Telefone")
+    private Collection; telefones;
+
+    @XmlElement(name = "Endereco", required = true)
+    private Endereco endereco;
+
+    //Gerar métodos get/set
+
+    @Override
+    public String toString() {
+        return "Contato{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", endereco=" + endereco +
+                ", telefones=" + telefones +
+                '}';
+    }
+}
